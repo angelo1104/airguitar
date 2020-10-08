@@ -35,29 +35,14 @@ handTrack.startVideo(video)
 function runDetection(){
     model.detect(video).then(predictions =>{
         if (predictions.length !== 0){
-            let hand1 = predictions[0].bbox
-            let x = hand1[0]
-            let y = hand1[1]
+            const hand1 = predictions[0].bbox
+            const x = hand1[0]
+            const y = hand1[1]
 
-            let el = document.querySelector('h3')
+            const cursor = document.querySelector('.fake-cursor')
 
-            let viewportOffset = el.getBoundingClientRect();
-// these are relative to the viewport, i.e. the window
-            let top = viewportOffset.top;
-            let left = viewportOffset.left;
-
-            if (y>300){
-                if (x<200){
-                    audio.src = 'tom-1.mp3'
-                }else if (x>400){
-                    audio.src = 'tom-2.mp3'
-                }else if (x > 300){
-                    audio.src = 'tom-3.mp3'
-                }else if (x>200){
-                    audio.src = 'tom-4.mp3'
-                }
-            }
-            console.log(top,left,'these are x and y',x,y)
+            cursor.style.right = `${x}px`
+            cursor.style.top = `${y}px`
         }
     })
 }
